@@ -50,7 +50,8 @@ jobs:
       - name: Assemble site
         run: |
           mkdir -p _site
-          cp www/index.html _site/index.html
+          # Everything in www/ lands at the site root, including CNAME.
+          cp -R www/. _site/
           uv run --project classes/site_generator \
             aula build --content classes/content --out _site/classes
           # verbs/ app gets copied to _site/verbs/ here once it is migrated.

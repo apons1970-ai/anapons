@@ -496,13 +496,22 @@ The repository is a monorepo of several tools, published as a single GitHub Page
 ```
 _site/
   index.html      <- www/index.html, the landing page
+  CNAME           <- www/CNAME, the custom domain
   classes/        <- aula build --out _site/classes
   verbs/          <- the conjugation app, once migrated
 ```
 
-so `base_url` in `site.toml` is `/<repo>/classes/`. The workflow runs on every push to `main`
-and on pull requests; only `main` deploys. A build that fails validation does not deploy, so the
-live site always keeps the last good version.
+The site is served from the apex domain **anapons.net**, so the repository root maps to the
+domain root and `base_url` in `site.toml` is `/classes/`. Lessons end up at
+`https://anapons.net/classes/6g/primer-semestre-a/la-casa/`.
+
+`www/CNAME` is copied into the artifact on every build. It must stay in sync with the custom
+domain configured in the repository's Settings → Pages; if the file is removed, Pages drops the
+custom domain. DNS for the apex needs `A` records pointing at GitHub's Pages addresses (plus an
+`AAAA` set for IPv6), and a `CNAME` record for `www` pointing at `<user>.github.io`.
+
+The workflow runs on every push to `main` and on pull requests; only `main` deploys. A build
+that fails validation does not deploy, so the live site always keeps the last good version.
 
 The intended author workflow is to edit files directly on github.com and commit to `main`. If a
 commit breaks validation, the site is unchanged and the error appears as a line annotation on
