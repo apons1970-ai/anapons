@@ -1,0 +1,32 @@
+[project]
+name = "aula"
+version = "0.1.0"
+description = "Static site generator for Spanish-for-German-speakers lessons"
+readme = "README.md"
+authors = [
+    { name = "Jose Blanca", email = "jblanca@upv.es" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "jinja2>=3.1",
+    "markdown-it-py>=3.0",
+]
+
+[project.scripts]
+aula = "aula.cli:main"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.6",
+]
+
+[build-system]
+requires = ["uv_build>=0.12.3,<0.13.0"]
+build-backend = "uv_build"
+
+[tool.ruff]
+line-length = 100
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,0 +1,77 @@
+name: Build and deploy site
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+# Only one deploy at a time; a newer commit supersedes an in-flight one.
+# Never cancel a run that is already deploying.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Check content
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+          cache-dependency-glob: classes/site_generator/uv.lock
+
+      # --format github emits ::error file=...,line=...:: annotations, so mistakes
+      # show up on the offending line in the GitHub diff view, not just in the log.
+      - name: Validate classes content
+        run: |
+          uv run --project classes/site_generator \
+            aula check --content classes/content --strict --format github
+
+  build:
+    name: Build site
+    needs: check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+          cache-dependency-glob: classes/site_generator/uv.lock
+
+      - name: Assemble site
+        run: |
+          mkdir -p _site
+          cp www/index.html _site/index.html
+          uv run --project classes/site_generator \
+            aula build --content classes/content --out _site/classes
+          # verbs/ app gets copied to _site/verbs/ here once it is migrated.
+
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+
+  deploy:
+    name: Deploy to Pages
+    # Pull requests are checked and built, but only main is published. A failing
+    # build simply does not deploy, so the live site keeps the last good version.
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
