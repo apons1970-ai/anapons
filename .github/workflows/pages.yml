@@ -35,6 +35,11 @@ jobs:
           uv run --project classes/site_generator \
             aula check --content classes/content --strict --format github
 
+      # A wrong conjugation would teach a student wrong Spanish and nothing else
+      # would catch it, so the engine is checked against known forms on every push.
+      - name: Check verb conjugations
+        run: node verbs/tests/check-conjugations.mjs
+
   build:
     name: Build site
     needs: check
@@ -54,7 +59,9 @@ jobs:
           cp -R www/. _site/
           uv run --project classes/site_generator \
             aula build --content classes/content --out _site/classes
-          # verbs/ app gets copied to _site/verbs/ here once it is migrated.
+          # The verbs app is plain static files; it needs no build, only copying.
+          mkdir -p _site/verbs
+          cp -R verbs/index.html verbs/styles.css verbs/js _site/verbs/
 
       - uses: actions/upload-pages-artifact@v4
         with:
