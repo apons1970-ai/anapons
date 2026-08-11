@@ -19,7 +19,101 @@ nada de forma permanente, así que escribe con tranquilidad.
 
 ---
 
-## 2. Dónde vive el contenido
+## 2. Cómo se edita en GitHub
+
+Todo el contenido vive en GitHub. No hace falta instalar nada: se edita desde el
+navegador, igual que se rellena un formulario.
+
+La dirección es **github.com/JoseBlanca/anapons**, y para poder escribir tienes que
+haber aceptado antes la invitación que te llega por correo.
+
+### Cambiar algo que ya existe
+
+1. Ve abriendo carpetas hasta llegar al archivo: `classes` → `content` → `6G` → …
+2. Pulsa el **lápiz ✏️** que hay arriba a la derecha del archivo.
+3. Haz los cambios.
+4. Pulsa el botón verde **Commit changes…** arriba a la derecha.
+5. Se abre un cuadro. Puedes dejar lo que pone o escribir una frase corta que
+   explique el cambio (*«añado dos frases con ESTAR»*). Deja marcada la opción
+   **Commit directly to the `main` branch**, que es la que viene puesta.
+6. Pulsa **Commit changes**. Ya está.
+
+En dos o tres minutos el cambio se ve en la web.
+
+### Añadir una actividad a una lección que ya existe
+
+1. Entra en la carpeta de la lección.
+2. Arriba a la derecha: **Add file** → **Create new file**.
+3. Escribe el nombre del archivo, con su número delante: `05-mas-practica.md`.
+4. Escribe o pega el contenido.
+5. **Commit changes…**, igual que antes.
+
+### Crear una lección nueva
+
+Aquí hay un truco que no se ve a simple vista: **GitHub no tiene ningún botón para
+crear carpetas**. Las carpetas se crean solas al escribir el nombre del archivo con
+barras `/`.
+
+1. **Add file** → **Create new file**.
+2. En la casilla del nombre, escribe la ruta completa de un tirón:
+
+   ```
+   classes/content/6G/01-primer-semestre-a/05-los-colores/_indice.md
+   ```
+
+   Verás que, según escribes cada `/`, GitHub va creando las carpetas.
+3. Escribe la ficha de la lección:
+
+   ```markdown
+   +++
+   titulo = "Los colores"
+   titulo_de = "Die Farben"
+   categoria = "vocabulario"
+   icono = "🎨"
+   estado = "borrador"
+   +++
+
+   Aquí va la explicación.
+   ```
+4. **Commit changes…**
+
+Con `estado = "borrador"` la lección no se publica hasta que tú quieras, así que
+puedes crearla vacía y llenarla poco a poco. Después, ya dentro de esa carpeta, vas
+añadiendo las actividades con **Add file**.
+
+### El editor grande, para cuando haya que hacer varias cosas
+
+Estando en el repositorio, pulsa la tecla del **punto `.`** del teclado. Se abre un
+editor completo dentro del navegador, mucho más cómodo para crear varios archivos
+seguidos, copiar y pegar entre ellos o cambiar nombres.
+
+Para guardar en ese editor: icono **Source Control** en la columna de la izquierda
+(parece un pequeño árbol de ramas), escribe una frase arriba y pulsa el **✓**.
+
+Para volver, cierra la pestaña.
+
+### Saber si ha ido bien
+
+Al lado del último cambio aparece una marca:
+
+| Marca | Qué significa |
+|---|---|
+| 🟠 círculo naranja | Se está construyendo la web. Espera un minuto |
+| ✓ verde | Todo bien, el cambio ya está publicado |
+| ✗ roja | Hay algo que arreglar. La web sigue como estaba |
+
+Si sale la roja, pínchala para ver qué falla: en la sección 10 está explicado.
+
+### Ver la web
+
+**anapons.net** — y las clases, en **anapons.net/classes/**.
+
+Si acabas de guardar un cambio y no lo ves, espera un poco y recarga la página con
+<kbd>Ctrl</kbd>+<kbd>F5</kbd> (o <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd> en un Mac).
+
+---
+
+## 3. Dónde vive el contenido
 
 Todo está dentro de la carpeta `content/`, en tres niveles:
 
@@ -45,7 +139,7 @@ carpeta. Todos los demás archivos de una lección son actividades.
 
 ---
 
-## 3. Cómo es un archivo por dentro
+## 4. Cómo es un archivo por dentro
 
 Todos los archivos tienen la misma forma: una **ficha** arriba, entre dos líneas
 de `+++`, y debajo el **contenido**.
@@ -74,7 +168,7 @@ Reglas de la ficha:
 
 ---
 
-## 4. Los datos de cada ficha
+## 5. Los datos de cada ficha
 
 ### `site.toml` (ajustes generales)
 
@@ -117,7 +211,7 @@ actividades. Ahí puedes usar **negrita**, *cursiva* y listas.
 
 | Dato | Obligatorio | Para qué sirve |
 |---|---|---|
-| `tipo` | sí | Uno de los siete de la sección 6 |
+| `tipo` | sí | Uno de los siete de la sección 7 |
 | `titulo` | sí | El título de la actividad |
 | `titulo_de` | no | El título en alemán |
 | `instruccion` | no | La orden: *"Completa las frases."* |
@@ -129,7 +223,7 @@ actividades. Ahí puedes usar **negrita**, *cursiva* y listas.
 
 ---
 
-## 5. Escribir en dos idiomas
+## 6. Escribir en dos idiomas
 
 Los alumnos ven un botón **Deutsch: an / aus** arriba a la derecha. Cuando lo
 apagan, desaparece de golpe todo lo que está en alemán. Hay dos maneras de marcar
@@ -159,7 +253,7 @@ Mit **HAY** spricht man über unbestimmte Dinge.
 
 ---
 
-## 6. Los siete tipos de actividad
+## 7. Los siete tipos de actividad
 
 Hay siete tipos y no se pueden inventar más. Si necesitas uno nuevo, se puede
 añadir, pero hay que programarlo.
@@ -375,7 +469,7 @@ Frage nach der Existenz → HAY. Frage nach dem Ort → ESTAR.
 
 ---
 
-## 7. Los nombres de los archivos
+## 8. Los nombres de los archivos
 
 Esta es la parte que más fallos da, así que merece la pena leerla despacio.
 
@@ -404,7 +498,7 @@ adelante. Dos archivos no pueden llevar el mismo número en la misma carpeta.
 
 ---
 
-## 8. Trabajos a medias
+## 9. Trabajos a medias
 
 Para dejar algo empezado sin que lo vean los alumnos, ponle `estado` en la ficha:
 
@@ -422,7 +516,7 @@ escribe `estado = "publicado"`.
 
 ---
 
-## 9. Cuando algo va mal
+## 10. Cuando algo va mal
 
 Después de guardar un cambio, GitHub revisa lo escrito. Pueden pasar dos cosas:
 
@@ -457,7 +551,7 @@ se entiende, es un fallo nuestro y lo cambiamos.
 
 ---
 
-## 10. Chuleta
+## 11. Chuleta
 
 ```markdown
 +++
