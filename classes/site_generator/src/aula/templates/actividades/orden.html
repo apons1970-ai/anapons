@@ -1,0 +1,29 @@
+<section class="actividad" id="{{ actividad.slug }}" data-tipo="orden"
+         data-id="{{ leccion_id }}/{{ actividad.slug }}"
+         data-barajar="{{ "si" if actividad.barajar else "no" }}">
+  {% include "actividades/_cabecera.html" %}
+
+  <p class="pista">Toca las palabras en el orden correcto. Tócalas otra vez para quitarlas.</p>
+
+  <ol class="frases">
+    {% for frase in actividad.body.items %}
+    <li class="frase" data-frase="{{ loop.index0 }}">
+      <div class="respuesta" aria-live="polite"></div>
+      {# data-pieza is the correct position; the script shuffles them on load. #}
+      <div class="piezas">
+        {% for pieza in frase.piezas %}
+        <button type="button" class="pieza" data-pieza="{{ loop.index0 }}">{{ pieza }}</button>
+        {% endfor %}
+      </div>
+      <p class="resultado" role="status"></p>
+      {% if frase.ayuda %}<p class="ayuda de" hidden>{{ frase.ayuda }}</p>{% endif %}
+    </li>
+    {% endfor %}
+  </ol>
+
+  <div class="acciones">
+    <button type="button" class="comprobar">Comprobar</button>
+    <button type="button" class="reiniciar" hidden>Otra vez</button>
+    <p class="marcador" role="status"></p>
+  </div>
+</section>

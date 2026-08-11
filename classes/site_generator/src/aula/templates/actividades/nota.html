@@ -1,0 +1,7 @@
+<aside class="actividad nota" id="{{ actividad.slug }}" data-tipo="nota">
+  {% if actividad.titulo %}
+  <h2>💡 {{ actividad.titulo }}</h2>
+  {% if actividad.titulo_de %}<p class="de subtitulo">{{ actividad.titulo_de }}</p>{% endif %}
+  {% endif %}
+  {{ actividad.body.prose | prose }}
+</aside>

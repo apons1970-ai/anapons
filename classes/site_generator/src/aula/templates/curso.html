@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}{{ curso.titulo }} · {{ site.titulo }}{% endblock %}
+
+{% block breadcrumbs %}
+<nav class="migas" aria-label="Ruta">
+  <a href="{{ url() }}">Inicio</a>
+</nav>
+{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <span class="eyebrow">{{ curso.codigo }}</span>
+  <h1>{{ curso.titulo }}</h1>
+  {% if curso.titulo_de %}<p class="de">{{ curso.titulo_de }}</p>{% endif %}
+</section>
+
+{% if curso.prose %}
+<section class="explicacion">{{ curso.prose | prose }}</section>
+{% endif %}
+
+<ul class="tarjetas">
+  {% for semestre in curso.semestres %}
+  <li>
+    <a class="tarjeta" href="{{ url(curso.slug, semestre.slug) }}">
+      <span class="titulo">{{ semestre.titulo }}</span>
+      {% if semestre.titulo_de %}<span class="de subtitulo">{{ semestre.titulo_de }}</span>{% endif %}
+      <span class="cuenta">
+        {{ semestre.lecciones | length }}
+        {{ "lección" if semestre.lecciones | length == 1 else "lecciones" }}
+      </span>
+    </a>
+  </li>
+  {% else %}
+  <li class="vacio">Esta clase todavía no tiene contenido.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,19 @@
+<section class="actividad libre" id="{{ actividad.slug }}" data-tipo="libre"
+         data-id="{{ leccion_id }}/{{ actividad.slug }}">
+  {% include "actividades/_cabecera.html" %}
+
+  {% for segmento in actividad.body.prose if not segmento.label %}
+  <div class="enunciado">{{ segmento.text | markdown }}</div>
+  {% endfor %}
+
+  {# What the student writes is kept in localStorage, so a refresh does not lose it. #}
+  <textarea class="escritura" rows="5" placeholder="Escribe aquí…"
+            aria-label="Tu respuesta"></textarea>
+
+  {% for segmento in actividad.body.prose if segmento.label == "modelo" %}
+  <div class="acciones">
+    <button type="button" class="ver-modelo" aria-expanded="false">Ver un modelo</button>
+  </div>
+  <div class="modelo" hidden>{{ segmento.text | markdown }}</div>
+  {% endfor %}
+</section>

@@ -1,0 +1,37 @@
+<section class="actividad" id="{{ actividad.slug }}" data-tipo="huecos"
+         data-id="{{ leccion_id }}/{{ actividad.slug }}">
+  {% include "actividades/_cabecera.html" %}
+
+  {# The accepted answers, in document order: one list per gap, per sentence. #}
+  <script type="application/json" class="respuestas">{{ actividad.body.items | respuestas | tojson }}</script>
+
+  <ol class="frases">
+    {% for frase in actividad.body.items %}
+    <li class="frase" data-frase="{{ loop.index0 }}">
+      <p class="texto">
+        {% set contador = namespace(hueco=0) %}
+        {% for parte in frase.partes %}
+          {% if parte.tipo == "hueco" %}
+            {# Sized generously: a wrong answer is often longer than the right one. #}
+            <input class="hueco" type="text" data-hueco="{{ contador.hueco }}"
+                   size="{{ parte.respuestas[0] | length + 4 }}"
+                   autocomplete="off" autocapitalize="off" spellcheck="false"
+                   aria-label="Hueco {{ contador.hueco + 1 }}">
+            {% set contador.hueco = contador.hueco + 1 %}
+          {% else %}
+            {{ parte.texto }}
+          {% endif %}
+        {% endfor %}
+      </p>
+      <p class="resultado" role="status"></p>
+      {% if frase.ayuda %}<p class="ayuda de" hidden>{{ frase.ayuda }}</p>{% endif %}
+    </li>
+    {% endfor %}
+  </ol>
+
+  <div class="acciones">
+    <button type="button" class="comprobar">Comprobar</button>
+    <button type="button" class="reiniciar" hidden>Otra vez</button>
+    <p class="marcador" role="status"></p>
+  </div>
+</section>

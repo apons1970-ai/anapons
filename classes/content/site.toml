@@ -1,0 +1,5 @@
+version = 1
+titulo = "Clases de español paso a paso"
+titulo_de = "Spanisch Schritt für Schritt"
+base_url = "/classes/"
+cursos = ["6G"]

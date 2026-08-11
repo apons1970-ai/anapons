@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}{{ leccion.titulo }} · {{ curso.titulo }}{% endblock %}
+
+{% block breadcrumbs %}
+<nav class="migas" aria-label="Ruta">
+  <a href="{{ url() }}">Inicio</a>
+  <a href="{{ url(curso.slug) }}">{{ curso.titulo }}</a>
+  <a href="{{ url(curso.slug, semestre.slug) }}">{{ semestre.titulo }}</a>
+</nav>
+{% endblock %}
+
+{% block content %}
+<article class="leccion" data-leccion="{{ leccion_id }}">
+  <section class="hero">
+    <span class="eyebrow">{{ semestre.titulo }}</span>
+    <h1>{% if leccion.icono %}{{ leccion.icono }} {% endif %}{{ leccion.titulo }}</h1>
+    {% if leccion.titulo_de %}<p class="de">{{ leccion.titulo_de }}</p>{% endif %}
+  </section>
+
+  {% if leccion.prose %}
+  <section class="explicacion">{{ leccion.prose | prose }}</section>
+  {% endif %}
+
+  {% for actividad in leccion.actividades %}
+    {% include "actividades/" ~ actividad.tipo ~ ".html" %}
+  {% endfor %}
+</article>
+
+<nav class="paso">
+  {% if anterior %}
+  <a class="anterior" href="{{ url(curso.slug, semestre.slug, anterior.slug) }}">← {{ anterior.titulo }}</a>
+  {% endif %}
+  {% if siguiente %}
+  <a class="siguiente" href="{{ url(curso.slug, semestre.slug, siguiente.slug) }}">{{ siguiente.titulo }} →</a>
+  {% endif %}
+</nav>
+{% endblock %}

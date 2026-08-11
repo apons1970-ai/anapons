@@ -1,0 +1,20 @@
+<section class="actividad vocabulario" id="{{ actividad.slug }}" data-tipo="vocabulario"
+         data-id="{{ leccion_id }}/{{ actividad.slug }}">
+  {% include "actividades/_cabecera.html" %}
+
+  <div class="grupos">
+    {% for grupo in actividad.body.items %}
+    <div class="grupo">
+      {% if grupo.titulo %}<h3>{{ grupo.titulo }}</h3>{% endif %}
+      <dl>
+        {% for entrada in grupo.entradas %}
+        <div class="entrada">
+          <dt>{{ entrada.es }}</dt>
+          {% if entrada.de %}<dd class="de">{{ entrada.de }}</dd>{% endif %}
+        </div>
+        {% endfor %}
+      </dl>
+    </div>
+    {% endfor %}
+  </div>
+</section>

@@ -65,7 +65,11 @@ class Report:
                 for hint_line in problem.hint.splitlines():
                     lines.append(f"  {hint_line}")
             lines.append("")
-        errors = sum(1 for p in self.problems if p.severity == "error")
+        # Under --strict everything counts as an error, so the summary must agree
+        # with how each problem was just labelled above.
+        errors = (
+            len(self.problems) if strict else sum(1 for p in self.problems if p.severity == "error")
+        )
         warnings = len(self.problems) - errors
         if self.problems:
             lines.append(f"{errors} error(s), {warnings} warning(s)")

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero">
+  <h1>{{ site.titulo }}</h1>
+  {% if site.titulo_de %}
+  <p class="de">{{ site.titulo_de }}</p>
+  {% endif %}
+</section>
+
+<h2>Clases</h2>
+<ul class="tarjetas">
+  {% for curso in cursos %}
+  <li>
+    <a class="tarjeta" href="{{ url(curso.slug) }}">
+      <span class="codigo">{{ curso.codigo }}</span>
+      <span class="titulo">{{ curso.titulo }}</span>
+      {% if curso.titulo_de %}<span class="de subtitulo">{{ curso.titulo_de }}</span>{% endif %}
+      <span class="cuenta">
+        {{ curso.semestres | length }}
+        {{ "bloque" if curso.semestres | length == 1 else "bloques" }}
+      </span>
+    </a>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}

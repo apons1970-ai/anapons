@@ -1,0 +1,11 @@
+{# Title, level badge and bilingual instructions. Shared by every activity type. #}
+<header class="actividad-cabecera">
+  <h2>
+    {{ actividad.titulo }}
+    {% if actividad.nivel == "desafio" %}<span class="nivel desafio">⭐ Desafío</span>{% endif %}
+    {% if actividad.nivel == "repaso" %}<span class="nivel repaso">🔁 Repaso</span>{% endif %}
+  </h2>
+  {% if actividad.titulo_de %}<p class="de subtitulo">{{ actividad.titulo_de }}</p>{% endif %}
+  {% if actividad.instruccion %}<p class="instruccion">{{ actividad.instruccion }}</p>{% endif %}
+  {% if actividad.instruccion_de %}<p class="instruccion de">{{ actividad.instruccion_de }}</p>{% endif %}
+</header>

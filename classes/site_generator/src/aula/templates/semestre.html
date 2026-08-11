@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}{{ semestre.titulo }} · {{ curso.titulo }}{% endblock %}
+
+{% block breadcrumbs %}
+<nav class="migas" aria-label="Ruta">
+  <a href="{{ url() }}">Inicio</a>
+  <a href="{{ url(curso.slug) }}">{{ curso.titulo }}</a>
+</nav>
+{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <span class="eyebrow">{{ curso.codigo }}</span>
+  <h1>{{ semestre.titulo }}</h1>
+  {% if semestre.titulo_de %}<p class="de">{{ semestre.titulo_de }}</p>{% endif %}
+</section>
+
+{% if semestre.prose %}
+<section class="explicacion">{{ semestre.prose | prose }}</section>
+{% endif %}
+
+{% for heading, lecciones in grupos %}
+<section>
+  <h2>{{ heading }}</h2>
+  <ul class="tarjetas">
+    {% for leccion in lecciones %}
+    <li>
+      {# data-leccion lets the script mark what has already been done. #}
+      <a class="tarjeta leccion" href="{{ url(curso.slug, semestre.slug, leccion.slug) }}"
+         data-leccion="{{ curso.slug }}/{{ semestre.slug }}/{{ leccion.slug }}">
+        <span class="titulo">{% if leccion.icono %}{{ leccion.icono }} {% endif %}{{ leccion.titulo }}</span>
+        {% if leccion.titulo_de %}<span class="de subtitulo">{{ leccion.titulo_de }}</span>{% endif %}
+        <span class="cuenta">
+          {{ leccion.actividades | length }}
+          {{ "actividad" if leccion.actividades | length == 1 else "actividades" }}
+        </span>
+        <span class="hecho" hidden>✓ hecho</span>
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+{% else %}
+<p class="vacio">Este bloque todavía no tiene lecciones.</p>
+{% endfor %}
+{% endblock %}

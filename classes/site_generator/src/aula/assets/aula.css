@@ -1,0 +1,298 @@
+/* Styles for the lessons site.
+   Mobile first: most students open this on a phone or a tablet. */
+
+:root {
+  --verde: #315f59;
+  --verde-claro: #e6efed;
+  --fondo: #fbfaf7;
+  --papel: #ffffff;
+  --texto: #22302e;
+  --suave: #5d6b69;
+  --borde: #dbe2e0;
+  --bien: #2e7d4f;
+  --bien-fondo: #e8f5ed;
+  --casi: #a86a1a;
+  --casi-fondo: #fdf3e2;
+  --mal: #b3352f;
+  --mal-fondo: #fbeae9;
+  --radio: 0.6rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --verde: #7fc0b5;
+    --verde-claro: #1e3330;
+    --fondo: #151a19;
+    --papel: #1d2423;
+    --texto: #e6ecea;
+    --suave: #a6b4b1;
+    --borde: #33403d;
+    --bien: #6fce97;
+    --bien-fondo: #1c3327;
+    --casi: #e0b567;
+    --casi-fondo: #33291a;
+    --mal: #f0918b;
+    --mal-fondo: #35201f;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--fondo);
+  color: var(--texto);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+/* The German toggle hides every German-language element at once. */
+.sin-aleman .de { display: none !important; }
+
+/* ------------------------------------------------------------------ chrome */
+
+.cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  background: var(--verde);
+  color: #fff;
+}
+@media (prefers-color-scheme: dark) {
+  .cabecera { background: var(--verde-claro); color: var(--texto); }
+}
+
+.marca { color: inherit; font-weight: 700; text-decoration: none; }
+
+.idioma {
+  border: 1px solid currentColor;
+  background: transparent;
+  color: inherit;
+  border-radius: 999px;
+  padding: 0.25rem 0.8rem;
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.idioma .sin { display: none; }
+.sin-aleman .idioma .con { display: none; }
+.sin-aleman .idioma .sin { display: inline; }
+
+.migas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.75rem;
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 0.75rem 1rem 0;
+  font-size: 0.9rem;
+}
+.migas a { color: var(--suave); }
+.migas a:not(:last-child)::after { content: " ›"; color: var(--borde); }
+
+.pagina { max-width: 46rem; margin: 0 auto; padding: 1rem 1rem 4rem; }
+
+.pie {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  color: var(--suave);
+  font-size: 0.85rem;
+}
+
+a { color: var(--verde); }
+
+.hero { margin: 1.5rem 0 2rem; }
+.hero h1 { margin: 0.2rem 0; font-size: 1.75rem; line-height: 1.25; }
+.hero .de { color: var(--suave); margin: 0; }
+
+.eyebrow {
+  display: inline-block;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--suave);
+}
+
+.vacio { color: var(--suave); font-style: italic; }
+
+/* ------------------------------------------------------------------- cards */
+
+.tarjetas { list-style: none; margin: 0 0 2rem; padding: 0; display: grid; gap: 0.75rem; }
+@media (min-width: 34rem) {
+  .tarjetas { grid-template-columns: repeat(2, 1fr); }
+}
+
+.tarjeta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  height: 100%;
+  padding: 1rem;
+  background: var(--papel);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  text-decoration: none;
+  color: inherit;
+}
+.tarjeta:hover, .tarjeta:focus-visible { border-color: var(--verde); }
+.tarjeta .codigo, .tarjeta .cuenta { font-size: 0.8rem; color: var(--suave); }
+.tarjeta .titulo { font-weight: 600; }
+.tarjeta .subtitulo { color: var(--suave); font-size: 0.9rem; }
+.tarjeta .hecho { font-size: 0.8rem; color: var(--bien); font-weight: 600; }
+
+/* -------------------------------------------------------------- activities */
+
+.explicacion {
+  background: var(--verde-claro);
+  border-radius: var(--radio);
+  padding: 0.25rem 1rem;
+  margin-bottom: 2rem;
+}
+.explicacion .de { color: var(--suave); }
+
+.actividad {
+  background: var(--papel);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+.actividad-cabecera h2 { margin: 0; font-size: 1.15rem; }
+.actividad-cabecera .subtitulo,
+.actividad .instruccion { margin: 0.25rem 0 0; color: var(--suave); font-size: 0.95rem; }
+.actividad .pista, .actividad .pista-varias { color: var(--suave); font-size: 0.85rem; }
+
+.nivel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  background: var(--verde-claro);
+  color: var(--verde);
+  white-space: nowrap;
+}
+
+.actividad .acciones {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.comprobar, .reiniciar, .ver-modelo {
+  font: inherit;
+  font-weight: 600;
+  padding: 0.5rem 1.1rem;
+  border-radius: var(--radio);
+  border: 1px solid var(--verde);
+  cursor: pointer;
+}
+.comprobar { background: var(--verde); color: var(--fondo); }
+.reiniciar, .ver-modelo { background: transparent; color: var(--verde); }
+
+.marcador { margin: 0; font-weight: 600; }
+
+.preguntas, .frases { list-style: none; margin: 1rem 0 0; padding: 0; }
+.preguntas > li, .frases > li { margin-bottom: 1.25rem; }
+.enunciado { margin: 0 0 0.5rem; font-weight: 600; }
+
+.opciones { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+.opcion, .ficha, .pieza {
+  font: inherit;
+  padding: 0.45rem 0.9rem;
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  background: var(--fondo);
+  color: inherit;
+  cursor: pointer;
+}
+.opcion[aria-pressed="true"], .ficha[aria-pressed="true"] {
+  border-color: var(--verde);
+  background: var(--verde-claro);
+  font-weight: 600;
+}
+
+.hueco {
+  font: inherit;
+  padding: 0.15rem 0.4rem;
+  border: 0;
+  border-bottom: 2px solid var(--verde);
+  background: transparent;
+  color: inherit;
+  min-width: 4rem;
+}
+
+.resultado { margin: 0.4rem 0 0; font-size: 0.9rem; }
+.ayuda {
+  margin: 0.3rem 0 0;
+  padding: 0.4rem 0.7rem;
+  border-left: 3px solid var(--borde);
+  color: var(--suave);
+  font-size: 0.9rem;
+}
+
+/* Judgement states, shared by every type that checks an answer. */
+.bien { color: var(--bien); }
+.casi { color: var(--casi); }
+.mal { color: var(--mal); }
+.opcion.bien, .ficha.bien, .frase.bien .hueco { border-color: var(--bien); background: var(--bien-fondo); }
+.opcion.mal, .frase.mal .hueco { border-color: var(--mal); background: var(--mal-fondo); }
+.frase.casi .hueco { border-color: var(--casi); background: var(--casi-fondo); }
+.ficha.emparejada { opacity: 0.45; pointer-events: none; }
+
+.parejas { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 1rem; }
+.columna { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; align-content: start; }
+.columna .ficha { width: 100%; text-align: left; }
+
+.piezas, .respuesta { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.respuesta {
+  min-height: 2.6rem;
+  padding: 0.4rem;
+  margin-bottom: 0.5rem;
+  border: 1px dashed var(--borde);
+  border-radius: var(--radio);
+}
+
+.vocabulario .grupo h3 { margin: 1rem 0 0.4rem; font-size: 1rem; }
+.vocabulario dl { margin: 0; display: grid; gap: 0.1rem 1rem; grid-template-columns: auto 1fr; }
+.vocabulario .entrada { display: contents; }
+.vocabulario dt { font-weight: 600; }
+.vocabulario dd { margin: 0; color: var(--suave); }
+
+.escritura {
+  width: 100%;
+  font: inherit;
+  margin-top: 0.75rem;
+  padding: 0.6rem;
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  background: var(--fondo);
+  color: inherit;
+}
+
+.modelo {
+  margin-top: 0.75rem;
+  padding: 0.1rem 0.9rem;
+  background: var(--verde-claro);
+  border-radius: var(--radio);
+}
+
+.nota { background: var(--verde-claro); border-color: transparent; }
+.nota h2 { margin: 0 0 0.5rem; font-size: 1.05rem; }
+.nota .de { color: var(--suave); }
+
+.paso { display: flex; justify-content: space-between; gap: 1rem; margin-top: 2rem; }
+.paso a { text-decoration: none; }
+
+:focus-visible { outline: 3px solid var(--verde); outline-offset: 2px; }
+
+@media print {
+  .cabecera, .idioma, .acciones, .paso, .migas { display: none; }
+  .actividad { break-inside: avoid; border-color: #999; }
+}

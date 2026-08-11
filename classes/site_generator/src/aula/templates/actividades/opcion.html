@@ -1,0 +1,34 @@
+<section class="actividad" id="{{ actividad.slug }}" data-tipo="opcion"
+         data-id="{{ leccion_id }}/{{ actividad.slug }}"
+         data-barajar="{{ "si" if actividad.barajar else "no" }}">
+  {% include "actividades/_cabecera.html" %}
+
+  <ol class="preguntas">
+    {% for pregunta in actividad.body.items %}
+    {% set correctas = pregunta.opciones | selectattr("correcta") | list | length %}
+    <li class="pregunta" data-pregunta="{{ loop.index0 }}"
+        {% if correctas > 1 %}data-varias="si"{% endif %}>
+      <p class="enunciado">{{ pregunta.pregunta }}</p>
+      {% if correctas > 1 %}
+      <p class="pista-varias">Puede haber más de una respuesta correcta.</p>
+      {% endif %}
+      <ul class="opciones">
+        {% for opcion in pregunta.opciones %}
+        <li>
+          <button type="button" class="opcion" aria-pressed="false"
+                  data-correcta="{{ "si" if opcion.correcta else "no" }}">{{ opcion.texto }}</button>
+        </li>
+        {% endfor %}
+      </ul>
+      <p class="resultado" role="status"></p>
+      {% if pregunta.ayuda %}<p class="ayuda de" hidden>{{ pregunta.ayuda }}</p>{% endif %}
+    </li>
+    {% endfor %}
+  </ol>
+
+  <div class="acciones">
+    <button type="button" class="comprobar">Comprobar</button>
+    <button type="button" class="reiniciar" hidden>Otra vez</button>
+    <p class="marcador" role="status"></p>
+  </div>
+</section>
